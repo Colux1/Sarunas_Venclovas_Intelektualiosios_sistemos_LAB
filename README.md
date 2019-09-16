@@ -1,0 +1,2 @@
+# Intelektualiosios_sistemos_LAB
+Intelektualiosios sistemos laboratoriniai darbai
