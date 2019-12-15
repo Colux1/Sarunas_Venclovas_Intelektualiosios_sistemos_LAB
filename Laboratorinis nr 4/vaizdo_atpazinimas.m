@@ -1,0 +1,117 @@
+close all
+clear all
+clc
+%% raidþiø pavyzdþiø nuskaitymas ir poþymiø skaièiavimas
+pavadinimas = 'train_data_1.png';
+pozymiai_tinklo_mokymui = pozymiai_raidems_atpazinti(pavadinimas, 6);
+%% Atpaþintuvo kûrimas
+% poþymiai ið celiø masyvo perkeliami á matricà
+P = cell2mat(pozymiai_tinklo_mokymui);
+% sukuriama teisingø atsakymø matrica: 11 raidþiø, 8 eilutës mokymui
+T = [eye(6), eye(6), eye(6),eye(6), eye(6), eye(6)];
+% sukuriamas SBF tinklas duotiems P ir T sàryðiams
+tinklas = newrb(P,T,0,1,20);
+
+%% Tinklo patikra
+% skaièiuojamas tinklo iðëjimas neþinomiems poþymiams
+P2 = P(:,6:36);
+Y2 = sim(tinklas, P2);
+% ieðkoma, kuriame iðëjime gauta didþiausia reikðmë
+[a2, b2] = max(Y2);
+%% Rezultato atvaizdavimas
+% apskaièiuosime raidþiø skaièiø - poþymiø P2 stulpeliø skaièiø
+raidziu_sk = size(P2,2);
+% rezultatà saugosime kintamajame 'atsakymas'
+atsakymas = [];
+for k = 1:raidziu_sk
+    switch b2(k)
+        case 1
+            atsakymas = [atsakymas, 'K'];
+        case 2
+            atsakymas = [atsakymas, '1'];
+        case 3
+            atsakymas = [atsakymas, 'M'];
+        case 4
+            atsakymas = [atsakymas, 'S'];
+        case 5
+            atsakymas = [atsakymas, 'A'];
+        case 6
+           atsakymas = [atsakymas, 'O'];
+          
+      
+    end
+end
+% pateikime rezultatà komandiniame lange
+% disp(atsakymas)
+% % figure(7), text(0.1,0.5,atsakymas,'FontSize',38)
+%% þodþio "KA1MAS" poþymiø iðskyrimas 
+pavadinimas = 'test_euras15_1.png';
+pozymiai_patikrai = pozymiai_raidems_atpazinti(pavadinimas, 1);
+
+%% Raidþiø atpaþinimas
+% poþymiai ið celiø masyvo perkeliami á matricà
+P2 = cell2mat(pozymiai_patikrai);
+% skaièiuojamas tinklo iðëjimas neþinomiems poþymiams
+Y2 = sim(tinklas, P2);
+% ieðkoma, kuriame iðëjime gauta didþiausia reikðmë
+[~, b2] = max(Y2);
+%% Rezultato atvaizdavimas
+% apskaièiuosime raidþiø skaièiø - poþymiø P2 stulpeliø skaièiø
+raidziu_sk = size(P2,2);
+% rezultatà saugosime kintamajame 'atsakymas'
+atsakymas = [];
+for k = 1:raidziu_sk
+    switch b2(k)
+       case 1
+            atsakymas = [atsakymas, 'K'];
+        case 2
+            atsakymas = [atsakymas, 'A'];
+        case 3
+            atsakymas = [atsakymas, '1'];
+        case 4
+            atsakymas = [atsakymas, 'M'];
+        case 5
+            atsakymas = [atsakymas, 'S'];
+
+    end
+end
+% pateikime rezultatà komandiniame lange
+% disp(atsakymas)
+figure(8), text(0.1,0.5,atsakymas,'FontSize',38), axis off
+% %% þodþio "FIKCIJA" poþymiø iðskyrimas 
+% pavadinimas = 'test_fikcija.png';
+% pozymiai_patikrai = pozymiai_raidems_atpazinti(pavadinimas, 1);
+
+%% Raidþiø atpaþinimas
+% poþymiai ið celiø masyvo perkeliami á matricà
+P2 = cell2mat(pozymiai_patikrai);
+% skaièiuojamas tinklo iðëjimas neþinomiems poþymiams
+Y2 = sim(tinklas, P2);
+% ieðkoma, kuriame iðëjime gauta didþiausia reikðmë
+[a2, b2] = max(Y2);
+%% Rezultato atvaizdavimas
+% apskaièiuosime raidþiø skaièiø - poþymiø P2 stulpeliø skaièiø
+raidziu_sk = size(P2,2);
+% rezultatà saugosime kintamajame 'atsakymas'
+atsakymas = [];
+for k = 1:raidziu_sk
+    switch b2(k)
+      case 1
+            atsakymas = [atsakymas, 'K'];
+        case 2
+            atsakymas = [atsakymas, '1'];
+        case 3
+            atsakymas = [atsakymas, 'M'];
+        case 4
+            atsakymas = [atsakymas, 'S'];
+        case 5
+            atsakymas = [atsakymas, 'A'];
+        case 6
+           atsakymas = [atsakymas, 'O'];
+          
+    end
+end
+% pateikime rezultatà komandiniame lange
+disp(atsakymas)
+figure(9), text(0.1,0.5,atsakymas,'FontSize',38), axis off
+
